@@ -1045,6 +1045,189 @@
 
         .whatsapp-float:hover { transform: scale(1.15) rotate(8deg); }
 
+        /* ===== SOUND TOGGLE ===== */
+        .sound-toggle {
+            position: fixed;
+            bottom: 116px; left: 36px;
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: rgba(10,37,64,0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(46,196,182,0.3);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1001;
+            transition: all 0.35s cubic-bezier(0.175,0.885,0.32,1.4), opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+            pointer-events: all;
+        }
+        .sound-toggle:hover {
+            transform: scale(1.12);
+            border-color: rgba(46,196,182,0.7);
+            box-shadow: 0 6px 20px rgba(46,196,182,0.2);
+        }
+        .sound-toggle svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.75); transition: fill 0.2s; }
+        .sound-toggle:hover svg { fill: var(--teal); }
+        .sound-toggle.muted svg.icon-mute { display: block; }
+        .sound-toggle.muted svg.icon-sound { display: none; }
+        .sound-toggle:not(.muted) svg.icon-sound { display: block; }
+        .sound-toggle:not(.muted) svg.icon-mute { display: none; }
+
+        @media (max-width: 900px) {
+            .sound-toggle { bottom: 88px; left: 20px; width: 38px; height: 38px; }
+        }
+
+        /* ===== PODCAST FLOAT ===== */
+        .podcast-float {
+            position: fixed;
+            bottom: 36px; left: 36px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .podcast-btn {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--ocean-bright));
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(46,196,182,0.4);
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.4);
+            flex-shrink: 0;
+        }
+
+        .podcast-btn:hover { transform: scale(1.15); box-shadow: 0 10px 30px rgba(46,196,182,0.5); }
+
+        .podcast-btn svg { width: 28px; height: 28px; fill: var(--ocean-deep); transition: opacity 0.2s; }
+
+        .podcast-player {
+            background: rgba(10, 37, 64, 0.96);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px 20px 16px;
+            width: 280px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.35);
+            opacity: 0;
+            transform: translateY(12px) scale(0.95);
+            transform-origin: bottom left;
+            transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: none;
+            order: -1;
+        }
+
+        .podcast-player.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
+
+        .podcast-label {
+            font-size: 0.68rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--teal);
+            font-weight: 500;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .podcast-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1.35;
+            margin-bottom: 16px;
+        }
+
+        .podcast-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .podcast-play-pause {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: var(--teal);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .podcast-play-pause:hover { background: var(--teal-light); transform: scale(1.05); }
+        .podcast-play-pause svg { width: 16px; height: 16px; fill: var(--ocean-deep); }
+
+        .podcast-progress-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .podcast-progress {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 3px;
+            border-radius: 3px;
+            background: rgba(255,255,255,0.15);
+            outline: none;
+            cursor: pointer;
+        }
+
+        .podcast-progress::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            background: var(--teal);
+            cursor: pointer;
+        }
+
+        .podcast-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .podcast-close {
+            position: absolute;
+            top: 12px; right: 14px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.4);
+            cursor: pointer;
+            font-size: 1.1rem;
+            line-height: 1;
+            padding: 2px;
+            transition: color 0.2s;
+        }
+
+        .podcast-close:hover { color: var(--white); }
+
+        @media (max-width: 900px) {
+            .podcast-float { bottom: 20px; left: 20px; }
+            .podcast-btn { width: 52px; height: 52px; }
+            .podcast-player { width: 240px; }
+        }
+
         /* ===== GALERÍA DELFINES ===== */
         .dolphin-gallery {
             display: grid;
@@ -1446,6 +1629,48 @@
     <p style="margin-top: 8px; font-size: 0.78rem; opacity: 0.5;">Sanación profunda inspirada en la sabiduría libre del océano.</p>
 </footer>
 
+<!-- SOUND TOGGLE -->
+<button class="sound-toggle muted" id="soundToggle" aria-label="Activar / silenciar sonido ambiente" style="opacity:1; transform:scale(1);">
+    <!-- sound on icon -->
+    <svg class="icon-sound" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+    </svg>
+    <!-- mute icon -->
+    <svg class="icon-mute" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+    </svg>
+</button>
+
+<!-- PODCAST FLOAT -->
+<div class="podcast-float" id="podcastFloat">
+    <div class="podcast-player" id="podcastPlayer" style="position:relative;">
+        <button class="podcast-close" id="podcastClose" aria-label="Cerrar">✕</button>
+        <span class="podcast-label">🎙 Podcast exclusivo</span>
+        <div class="podcast-title">Dolphin Reiki — El libro,<br>en tu oído</div>
+        <audio id="podcastAudio" preload="none">
+            <source src="podcast.m4a" type="audio/mp4">
+        </audio>
+        <div class="podcast-controls">
+            <button class="podcast-play-pause" id="podcastPlayPause" aria-label="Reproducir / Pausar">
+                <svg id="iconPlay" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                <svg id="iconPause" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <div class="podcast-progress-wrap">
+                <input class="podcast-progress" type="range" id="podcastSeek" value="0" min="0" step="0.1" aria-label="Progreso">
+                <div class="podcast-time">
+                    <span id="podcastCurrent">0:00</span>
+                    <span id="podcastDuration">--:--</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="podcast-btn" id="podcastToggle" aria-label="Abrir podcast">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3C7.03 3 3 7.03 3 12v4a2 2 0 002 2h1a2 2 0 002-2v-3a2 2 0 00-2-2H5.1A7.006 7.006 0 0112 5a7.006 7.006 0 016.9 6H18a2 2 0 00-2 2v3a2 2 0 002 2h1a2 2 0 002-2v-4c0-4.97-4.03-9-9-9z"/>
+        </svg>
+    </button>
+</div>
+
 <!-- WHATSAPP FLOAT -->
 <a href="https://wa.me/59894691690" class="whatsapp-float" target="_blank" aria-label="Contacto por WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="64" height="64" alt="WhatsApp">
@@ -1517,6 +1742,348 @@
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
     }, { threshold: 0.1 });
     revealEls.forEach(el => observer.observe(el));
+
+    // Podcast player
+    const podcastToggle = document.getElementById('podcastToggle');
+    const podcastClose = document.getElementById('podcastClose');
+    const podcastPlayer = document.getElementById('podcastPlayer');
+    const podcastAudio = document.getElementById('podcastAudio');
+    const podcastPlayPause = document.getElementById('podcastPlayPause');
+    const iconPlay = document.getElementById('iconPlay');
+    const iconPause = document.getElementById('iconPause');
+    const podcastSeek = document.getElementById('podcastSeek');
+    const podcastCurrent = document.getElementById('podcastCurrent');
+    const podcastDuration = document.getElementById('podcastDuration');
+
+    function formatTime(s) {
+        if (isNaN(s)) return '--:--';
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
+    const soundToggleBtn = document.getElementById('soundToggle');
+
+    podcastToggle.addEventListener('click', () => {
+        const opening = !podcastPlayer.classList.contains('visible');
+        podcastPlayer.classList.toggle('visible');
+        if (opening) {
+            soundToggleBtn.style.opacity = '0';
+            soundToggleBtn.style.pointerEvents = 'none';
+            soundToggleBtn.style.transform = 'scale(0.7)';
+            if (ambientActive) {
+                ambientActive = false;
+                soundToggleBtn.classList.add('muted');
+                stopAmbient();
+            }
+        } else {
+            soundToggleBtn.style.opacity = '1';
+            soundToggleBtn.style.pointerEvents = 'all';
+            soundToggleBtn.style.transform = 'scale(1)';
+        }
+    });
+
+    podcastClose.addEventListener('click', () => {
+        podcastPlayer.classList.remove('visible');
+        soundToggleBtn.style.opacity = '1';
+        soundToggleBtn.style.pointerEvents = 'all';
+        soundToggleBtn.style.transform = 'scale(1)';
+    });
+
+    podcastPlayPause.addEventListener('click', () => {
+        if (podcastAudio.paused) {
+            podcastAudio.play();
+            iconPlay.style.display = 'none';
+            iconPause.style.display = 'block';
+        } else {
+            podcastAudio.pause();
+            iconPlay.style.display = 'block';
+            iconPause.style.display = 'none';
+        }
+    });
+
+    podcastAudio.addEventListener('loadedmetadata', () => {
+        podcastSeek.max = podcastAudio.duration;
+        podcastDuration.textContent = formatTime(podcastAudio.duration);
+    });
+
+    podcastAudio.addEventListener('timeupdate', () => {
+        podcastSeek.value = podcastAudio.currentTime;
+        podcastCurrent.textContent = formatTime(podcastAudio.currentTime);
+    });
+
+    podcastSeek.addEventListener('input', () => {
+        podcastAudio.currentTime = podcastSeek.value;
+    });
+
+    podcastAudio.addEventListener('ended', () => {
+        iconPlay.style.display = 'block';
+        iconPause.style.display = 'none';
+        podcastSeek.value = 0;
+        podcastCurrent.textContent = '0:00';
+    });
+
+    // ===== AMBIENT SOUND ENGINE =====
+    const soundBtn = document.getElementById('soundToggle');
+    let audioCtx = null;
+    let masterGain = null;
+    let oceanNodes = [];
+    let dolphinTimeout = null;
+    let ambientActive = false;
+
+    function getCtx() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return audioCtx;
+    }
+
+    function buildMasterGain() {
+        masterGain = getCtx().createGain();
+        masterGain.gain.value = 0;
+        masterGain.connect(audioCtx.destination);
+    }
+
+    function createOceanLayer(freq, gainVal, speed) {
+        const ctx = audioCtx;
+        const bufferSize = ctx.sampleRate * 4;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+
+        const source = ctx.createBufferSource();
+        source.buffer = buffer;
+        source.loop = true;
+
+        const filter = ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = freq;
+        filter.Q.value = 0.6;
+
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = speed;
+        const lfoGain = ctx.createGain();
+        lfoGain.gain.value = gainVal * 0.45;
+        lfo.connect(lfoGain);
+
+        const layerGain = ctx.createGain();
+        layerGain.gain.value = gainVal;
+        lfoGain.connect(layerGain.gain);
+
+        source.connect(filter);
+        filter.connect(layerGain);
+        layerGain.connect(masterGain);
+
+        source.start();
+        lfo.start();
+        return { source, lfo };
+    }
+
+    function scheduleDolphin() {
+        if (!ambientActive) return;
+        const t = audioCtx.currentTime;
+        if (Math.random() < 0.55) {
+            const clicks = 3 + Math.floor(Math.random() * 5);
+            for (let i = 0; i < clicks; i++) {
+                const ct = t + i * (0.025 + Math.random() * 0.04);
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.frequency.setValueAtTime(3000 + Math.random() * 8000, ct);
+                o.frequency.exponentialRampToValueAtTime(800 + Math.random() * 1000, ct + 0.018);
+                g.gain.setValueAtTime(0, ct);
+                g.gain.linearRampToValueAtTime(0.06 + Math.random() * 0.04, ct + 0.002);
+                g.gain.exponentialRampToValueAtTime(0.0001, ct + 0.022);
+                o.connect(g); g.connect(masterGain);
+                o.start(ct); o.stop(ct + 0.03);
+            }
+        } else {
+            const dur = 0.4 + Math.random() * 0.7;
+            const f1 = 4000 + Math.random() * 6000;
+            const f2 = Math.max(200, f1 + (Math.random() < 0.5 ? 1 : -1) * (2000 + Math.random() * 4000));
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            const vib = audioCtx.createOscillator();
+            const vibG = audioCtx.createGain();
+            o.frequency.setValueAtTime(f1, t);
+            o.frequency.exponentialRampToValueAtTime(f2, t + dur);
+            vib.frequency.value = 5 + Math.random() * 4;
+            vibG.gain.value = 80;
+            vib.connect(vibG); vibG.connect(o.frequency);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(0.07, t + 0.06);
+            g.gain.setValueAtTime(0.07, t + dur - 0.08);
+            g.gain.linearRampToValueAtTime(0, t + dur);
+            o.connect(g); g.connect(masterGain);
+            o.start(t); vib.start(t);
+            o.stop(t + dur + 0.05); vib.stop(t + dur + 0.05);
+        }
+        dolphinTimeout = setTimeout(scheduleDolphin, (8 + Math.random() * 14) * 1000);
+    }
+
+    function startAmbient() {
+        getCtx();
+        buildMasterGain(); // always fresh masterGain
+        oceanNodes = [
+            createOceanLayer(180, 0.22, 0.07),
+            createOceanLayer(520, 0.15, 0.11),
+            createOceanLayer(1100, 0.07, 0.19)
+        ];
+        masterGain.gain.setValueAtTime(0, audioCtx.currentTime);
+        masterGain.gain.linearRampToValueAtTime(0.38, audioCtx.currentTime + 4.5);
+        dolphinTimeout = setTimeout(scheduleDolphin, 4000 + Math.random() * 4000);
+    }
+
+    function stopAmbient() {
+        clearTimeout(dolphinTimeout);
+        if (!masterGain) return;
+        const now = audioCtx.currentTime;
+        masterGain.gain.cancelScheduledValues(now);
+        masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+        masterGain.gain.linearRampToValueAtTime(0, now + 1.5);
+        const nodesToStop = oceanNodes.slice();
+        oceanNodes = [];
+        setTimeout(() => {
+            nodesToStop.forEach(n => { try { n.source.stop(); n.lfo.stop(); } catch(e){} });
+            masterGain.disconnect();
+            masterGain = null;
+        }, 1600);
+    }
+
+    soundBtn.addEventListener('click', () => {
+        ambientActive = !ambientActive;
+        if (ambientActive) {
+            soundBtn.classList.remove('muted');
+            startAmbient();
+        } else {
+            soundBtn.classList.add('muted');
+            stopAmbient();
+        }
+    });
+
+    // Auto-start on first scroll or touch
+    function autoStartOnInteraction() {
+        if (!ambientActive) {
+            ambientActive = true;
+            soundBtn.classList.remove('muted');
+            startAmbient();
+        }
+        document.removeEventListener('scroll', autoStartOnInteraction);
+        document.removeEventListener('touchstart', autoStartOnInteraction);
+    }
+    document.addEventListener('scroll', autoStartOnInteraction);
+    document.addEventListener('touchstart', autoStartOnInteraction);
+
+    // ===== GALLERY DOLPHIN SOUNDS =====
+    // 6 distinct dolphin calls, one per photo
+    const gallerySounds = [
+        // 1 - serie de clicks rápidos (ecolocalización)
+        function() {
+            const t = audioCtx.currentTime;
+            for (let i = 0; i < 7; i++) {
+                const ct = t + i * 0.03;
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.frequency.setValueAtTime(6000 + Math.random() * 5000, ct);
+                o.frequency.exponentialRampToValueAtTime(400, ct + 0.02);
+                g.gain.setValueAtTime(0.12, ct);
+                g.gain.exponentialRampToValueAtTime(0.0001, ct + 0.025);
+                o.connect(g); g.connect(audioCtx.destination);
+                o.start(ct); o.stop(ct + 0.03);
+            }
+        },
+        // 2 - silbido ascendente largo
+        function() {
+            const t = audioCtx.currentTime;
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.frequency.setValueAtTime(2000, t);
+            o.frequency.exponentialRampToValueAtTime(9000, t + 0.9);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(0.1, t + 0.05);
+            g.gain.setValueAtTime(0.1, t + 0.8);
+            g.gain.linearRampToValueAtTime(0, t + 0.95);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(t); o.stop(t + 1);
+        },
+        // 3 - silbido en arco (sube y baja)
+        function() {
+            const t = audioCtx.currentTime;
+            const o = audioCtx.createOscillator();
+            const g = audioCtx.createGain();
+            o.frequency.setValueAtTime(3000, t);
+            o.frequency.exponentialRampToValueAtTime(11000, t + 0.4);
+            o.frequency.exponentialRampToValueAtTime(2500, t + 0.85);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(0.1, t + 0.06);
+            g.gain.setValueAtTime(0.1, t + 0.75);
+            g.gain.linearRampToValueAtTime(0, t + 0.9);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(t); o.stop(t + 0.95);
+        },
+        // 4 - trino rápido (vibrato intenso)
+        function() {
+            const t = audioCtx.currentTime;
+            const o = audioCtx.createOscillator();
+            const vib = audioCtx.createOscillator();
+            const vibG = audioCtx.createGain();
+            const g = audioCtx.createGain();
+            o.frequency.value = 5500;
+            vib.frequency.value = 18;
+            vibG.gain.value = 1200;
+            vib.connect(vibG); vibG.connect(o.frequency);
+            g.gain.setValueAtTime(0, t);
+            g.gain.linearRampToValueAtTime(0.1, t + 0.05);
+            g.gain.setValueAtTime(0.1, t + 0.55);
+            g.gain.linearRampToValueAtTime(0, t + 0.65);
+            o.connect(g); g.connect(audioCtx.destination);
+            o.start(t); vib.start(t); o.stop(t + 0.7); vib.stop(t + 0.7);
+        },
+        // 5 - silbido descendente con eco
+        function() {
+            const t = audioCtx.currentTime;
+            [0, 0.18, 0.34].forEach((delay, i) => {
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                const vol = 0.1 / (i + 1);
+                o.frequency.setValueAtTime(8000, t + delay);
+                o.frequency.exponentialRampToValueAtTime(1800, t + delay + 0.5);
+                g.gain.setValueAtTime(0, t + delay);
+                g.gain.linearRampToValueAtTime(vol, t + delay + 0.04);
+                g.gain.setValueAtTime(vol, t + delay + 0.42);
+                g.gain.linearRampToValueAtTime(0, t + delay + 0.55);
+                o.connect(g); g.connect(audioCtx.destination);
+                o.start(t + delay); o.stop(t + delay + 0.6);
+            });
+        },
+        // 6 - llamada social (dos notas)
+        function() {
+            const t = audioCtx.currentTime;
+            [[4000, 7000, 0, 0.35], [6500, 3500, 0.45, 0.35]].forEach(([f1, f2, delay, dur]) => {
+                const o = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                o.frequency.setValueAtTime(f1, t + delay);
+                o.frequency.exponentialRampToValueAtTime(f2, t + delay + dur);
+                g.gain.setValueAtTime(0, t + delay);
+                g.gain.linearRampToValueAtTime(0.09, t + delay + 0.05);
+                g.gain.setValueAtTime(0.09, t + delay + dur - 0.06);
+                g.gain.linearRampToValueAtTime(0, t + delay + dur);
+                o.connect(g); g.connect(audioCtx.destination);
+                o.start(t + delay); o.stop(t + delay + dur + 0.05);
+            });
+        }
+    ];
+
+    document.querySelectorAll('.gallery-img').forEach((img, i) => {
+        img.style.cursor = 'pointer';
+        img.addEventListener('click', () => {
+            // Init audio context if not yet started (user may not have scrolled)
+            if (!audioCtx) initAudio();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const fn = gallerySounds[i % gallerySounds.length];
+            fn();
+        });
+    });
 </script>
 </body>
 </html>

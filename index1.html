@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolphin Reiki | Sanación y Fluidez Energética</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ocean-deep: #0a2540;
+            --ocean-mid: #0e4b7a;
+            --ocean-bright: #1a8fc1;
+            --teal: #2ec4b6;
+            --teal-light: #a8f0ea;
+            --sand: #f5f0e8;
+            --sand-dark: #e8dfd0;
+            --cream: #fdfaf6;
+            --text-dark: #0a1628;
+            --text-mid: #2d4a6e;
+            --text-light: #6b8aac;
+            --white: #ffffff;
+            --glass: rgba(255,255,255,0.08);
+            --glass-border: rgba(255,255,255,0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--sand); }
+        ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 20px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.scrolled {
+            background: rgba(10, 37, 64, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 48px;
+            box-shadow: 0 1px 40px rgba(0,0,0,0.2);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo span { color: var(--teal); }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 1px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--teal);
+            color: var(--ocean-deep) !important;
+            border-radius: 50px;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover { background: var(--teal-light) !important; transform: translateY(-1px); }
+
+        .nav-hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .nav-hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            background: 
+                linear-gradient(180deg, rgba(10,37,64,0.55) 0%, rgba(14,75,122,0.45) 60%, rgba(10,37,64,0.8) 100%),
+                url('https://images.unsplash.com/photo-1570481662006-a3a1374699e8?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--teal);
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatUp var(--dur, 8s) ease-in infinite;
+            animation-delay: var(--delay, 0s);
+            left: var(--x, 50%);
+        }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(100vh) scale(0); }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.3; }
+            100% { opacity: 0; transform: translateY(-20vh) scale(1.5); }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 0 24px;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) forwards 0.3s;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-eyebrow {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.6s;
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 9vw, 6.5rem);
+            font-weight: 300;
+            line-height: 1.05;
+            margin-bottom: 28px;
+            letter-spacing: -1px;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 0.8s;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--teal-light);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.8);
+            max-width: 560px;
+            margin: 0 auto 44px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1s;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp 1s ease forwards 1.1s;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 36px;
+            background: var(--teal);
+            color: var(--ocean-deep);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+            box-shadow: 0 10px 30px rgba(46,196,182,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 40px rgba(46,196,182,0.4);
+            background: var(--teal-light);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 36px;
+            background: transparent;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.95rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.6);
+        }
+
+        .waves-container {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 2;
+        }
+
+        .waves { width: 100%; height: 10vh; min-height: 80px; }
+
+        .parallax-waves > use {
+            animation: move-wave 25s cubic-bezier(.55,.5,.45,.5) infinite;
+        }
+        .parallax-waves > use:nth-child(1) { animation-delay: -2s; animation-duration: 7s; }
+        .parallax-waves > use:nth-child(2) { animation-delay: -3s; animation-duration: 10s; }
+        .parallax-waves > use:nth-child(3) { animation-delay: -4s; animation-duration: 13s; }
+        .parallax-waves > use:nth-child(4) { animation-delay: -5s; animation-duration: 20s; }
+
+        @keyframes move-wave {
+            0% { transform: translate3d(-90px,0,0); }
+            100% { transform: translate3d(85px,0,0); }
+        }
+
+        /* ===== QUOTE BAR ===== */
+        .quote-bar {
+            background: linear-gradient(135deg, var(--ocean-mid), var(--ocean-deep));
+            padding: 52px 48px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-bar::before {
+            content: '';
+            position: absolute;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(46,196,182,0.12), transparent 70%);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .quote-bar blockquote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            font-weight: 300;
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            max-width: 780px;
+            margin: 0 auto 16px;
+            line-height: 1.55;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-bar blockquote em {
+            color: var(--teal);
+            font-style: normal;
+        }
+
+        .quote-bar cite {
+            font-size: 0.75rem;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            font-style: normal;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            padding: 120px 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--teal);
+            font-weight: 500;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            color: var(--ocean-deep);
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--ocean-bright);
+        }
+
+        /* ===== QUÉ ES ===== */
+        #que-es {
+            background: var(--cream);
+        }
+
+        .que-es-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .que-es-text p {
+            font-size: 1.05rem;
+            color: var(--text-mid);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .que-es-visual {
+            position: relative;
+        }
+
+        .que-es-img {
+            width: 100%;
+            height: 480px;
+            border-radius: 4px 30px 4px 30px;
+            object-fit: cover;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 30px 60px rgba(10,37,64,0.15);
+        }
+
+        .que-es-visual::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            background: linear-gradient(135deg, var(--teal), var(--ocean-bright));
+            border-radius: 30px;
+            bottom: -24px;
+            right: -24px;
+            z-index: 0;
+            opacity: 0.15;
+        }
+
+        .que-es-visual::after {
+            content: '"La frecuencia del océano vive en ti."';
+            position: absolute;
+            bottom: 28px;
+            left: -28px;
+            background: var(--white);
+            padding: 20px 24px;
+            border-radius: 12px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--ocean-mid);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            max-width: 220px;
+            z-index: 2;
+            line-height: 1.5;
+        }
+
+        /* ===== QUIEN SOY ===== */
+        #quien-soy {
+            background: var(--ocean-deep);
+            max-width: 100%;
+            padding: 120px 48px;
+        }
+
+        .quien-soy-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .quien-soy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 80px;
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .quien-foto-wrapper {
+            position: relative;
+        }
+
+        .quien-foto {
+            width: 100%;
+            height: 520px;
+            border-radius: 50% 20px 50% 20px;
+            object-fit: cover;
+            object-position: top;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quien-foto-wrapper::before {
+            content: '';
+            position: absolute;
+            inset: -12px;
+            border: 1px solid rgba(46,196,182,0.3);
+            border-radius: 55% 25px 55% 25px;
+            z-index: 0;
+        }
+
+        .quien-tag {
+            position: absolute;
+            bottom: 32px;
+            right: -20px;
+            background: var(--teal);
+            color: var(--ocean-deep);
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            z-index: 2;
+            letter-spacing: 0.5px;
+        }
+
+        .quien-text .section-title {
+            color: var(--white);
+        }
+
+        .quien-text .section-title em {
+            color: var(--teal);
+        }
+
+        .quien-bio {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.85;
+            margin-bottom: 20px;
+        }
+
+        .quien-credentials {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 36px;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.92rem;
+        }
+
+        .credential-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--teal);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ===== BENEFICIOS ===== */
+        #beneficios { background: var(--sand); max-width: 100%; padding: 120px 48px; }
+
+        .beneficios-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .beneficios-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 44px 36px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--teal), var(--ocean-bright));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(10,37,64,0.1);
+        }
+
+        .benefit-card:hover::before { transform: scaleX(1); }
+
+        .benefit-icon-wrap {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(46,196,182,0.12), rgba(26,143,193,0.08));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+        }
+
+        .benefit-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--ocean-deep);
+            margin-bottom: 14px;
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.75;
+        }
+
+        /* ===== TESTIMONIOS ===== */
+        #testimonios { background: var(--cream); max-width: 100%; padding: 120px 48px; }
+
+        .testimonios-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonios-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .testimonios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonio-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            border: 1px solid var(--sand-dark);
+            transition: all 0.3s ease;
+        }
+
+        .testimonio-card:hover {
+            border-color: var(--teal);
+            box-shadow: 0 16px 40px rgba(46,196,182,0.1);
+        }
+
+        .testimonio-card.featured {
+            background: var(--ocean-deep);
+            border-color: transparent;
+            grid-row: span 1;
+        }
+
+        .quote-mark {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            line-height: 0.5;
+            color: var(--teal);
+            opacity: 0.4;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .testimonio-card.featured .quote-mark { opacity: 0.6; }
+
+        .testimonio-text {
+            font-size: 1rem;
+            line-height: 1.75;
+            color: var(--text-mid);
+            font-style: italic;
+            margin-bottom: 28px;
+        }
+
+        .testimonio-card.featured .testimonio-text { color: rgba(255,255,255,0.8); }
+
+        .testimonio-stars {
+            color: #f59e0b;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .testimonio-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .author-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--teal), var(--ocean-bright));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .author-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--ocean-deep);
+            display: block;
+        }
+
+        .testimonio-card.featured .author-name { color: var(--white); }
+
+        .author-detail {
+            font-size: 0.78rem;
+            color: var(--text-light);
+        }
+
+        .testimonio-card.featured .author-detail { color: rgba(255,255,255,0.45); }
+
+        /* ===== PRECIOS ===== */
+        #precios { background: var(--sand); max-width: 100%; padding: 120px 48px; }
+
+        .precios-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .precios-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .precios-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            align-items: start;
+        }
+
+        .precio-card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 48px 36px;
+            border: 1px solid var(--sand-dark);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .precio-card.popular {
+            background: var(--ocean-deep);
+            border-color: transparent;
+            transform: scale(1.04);
+            box-shadow: 0 30px 60px rgba(10,37,64,0.2);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--teal);
+            color: var(--ocean-deep);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .precio-nombre {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--ocean-deep);
+            margin-bottom: 8px;
+        }
+
+        .precio-card.popular .precio-nombre { color: var(--white); }
+
+        .precio-desc {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .precio-card.popular .precio-desc { color: rgba(255,255,255,0.5); }
+
+        .precio-monto {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--ocean-deep);
+            line-height: 1;
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .precio-card.popular .precio-monto { color: var(--teal); }
+
+        .precio-moneda {
+            font-size: 1.2rem;
+            margin-top: 8px;
+        }
+
+        .precio-periodo {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+            display: block;
+        }
+
+        .precio-card.popular .precio-periodo { color: rgba(255,255,255,0.4); }
+
+        .precio-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 36px;
+        }
+
+        .precio-features li {
+            font-size: 0.9rem;
+            color: var(--text-mid);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .precio-card.popular .precio-features li { color: rgba(255,255,255,0.7); }
+
+        .precio-features li::before {
+            content: '✓';
+            color: var(--teal);
+            font-weight: 700;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        .precio-btn {
+            display: block;
+            text-align: center;
+            padding: 14px 28px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .precio-btn-outline {
+            border: 1px solid var(--ocean-deep);
+            color: var(--ocean-deep);
+        }
+
+        .precio-btn-outline:hover {
+            background: var(--ocean-deep);
+            color: white;
+        }
+
+        .precio-btn-solid {
+            background: var(--teal);
+            color: var(--ocean-deep);
+        }
+
+        .precio-btn-solid:hover {
+            background: var(--teal-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(46,196,182,0.3);
+        }
+
+        /* ===== FAQ ===== */
+        #preguntas { background: var(--cream); }
+
+        .faq-container {
+            max-width: 780px;
+            margin: 0 auto;
+        }
+
+        .faq-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--sand-dark);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 26px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--ocean-deep);
+            user-select: none;
+            gap: 20px;
+            transition: color 0.3s;
+        }
+
+        .faq-question:hover { color: var(--ocean-bright); }
+
+        .faq-plus {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--sand-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.4s ease;
+            font-size: 1.2rem;
+            color: var(--teal);
+            font-weight: 300;
+        }
+
+        .faq-item.active .faq-plus {
+            transform: rotate(45deg);
+            background: var(--teal);
+            color: var(--ocean-deep);
+            border-color: var(--teal);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+
+        .faq-answer-inner {
+            padding: 0 0 28px;
+            color: var(--text-mid);
+            font-size: 0.98rem;
+            line-height: 1.8;
+        }
+
+        /* ===== CONTACTO ===== */
+        #contacto { background: var(--ocean-deep); max-width: 100%; padding: 120px 48px; }
+
+        .contacto-inner {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contacto-inner .section-title {
+            color: var(--white);
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+        }
+
+        .contacto-inner .section-title em { color: var(--teal); }
+
+        .contacto-sub {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 52px;
+            line-height: 1.7;
+        }
+
+        .contacto-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            background: #25D366;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 12px 30px rgba(37,211,102,0.3);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(37,211,102,0.4);
+        }
+
+        .contacto-promise {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .promise-item {
+            color: rgba(255,255,255,0.45);
+            font-size: 0.82rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .promise-item::before {
+            content: '✦';
+            color: var(--teal);
+            font-size: 0.6rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #040f1e;
+            color: rgba(255,255,255,0.4);
+            padding: 48px;
+            text-align: center;
+        }
+
+        footer p { margin-bottom: 8px; font-size: 0.85rem; }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        /* ===== WHATSAPP FLOAT ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 36px; right: 36px;
+            background: transparent;
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            z-index: 999;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175,0.885,0.32,1.4);
+        }
+
+        .whatsapp-float:hover { transform: scale(1.15) rotate(8deg); }
+
+        /* ===== GALERÍA DELFINES ===== */
+        .dolphin-gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 260px 260px;
+            gap: 6px;
+            max-width: 100%;
+        }
+
+        .gallery-img {
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            overflow: hidden;
+            filter: saturate(0.88);
+        }
+
+        .gallery-img:hover {
+            filter: saturate(1.2);
+            transform: scale(1.02);
+            z-index: 1;
+        }
+
+        .gallery-img.tall {
+            grid-row: span 2;
+        }
+
+        @media (max-width: 900px) {
+            .dolphin-gallery {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 180px);
+            }
+            .gallery-img.tall { grid-row: span 1; }
+        }
+
+        /* ===== REVEAL ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s cubic-bezier(0.215,0.610,0.355,1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 900px) {
+            nav { padding: 18px 24px; }
+            nav.scrolled { padding: 14px 24px; }
+            .nav-links { display: none; }
+            .nav-hamburger { display: flex; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                inset: 0;
+                background: rgba(10,37,64,0.97);
+                backdrop-filter: blur(20px);
+                z-index: 999;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+            }
+            .nav-links.open a { font-size: 1.4rem; }
+            .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+            .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+            .section { padding: 80px 24px; }
+            #quien-soy, #beneficios, #testimonios, #precios, #contacto { padding: 80px 24px; }
+            .quote-bar { padding: 44px 24px; }
+            .que-es-grid, .quien-soy-grid { grid-template-columns: 1fr; gap: 48px; }
+            .benefits-grid, .testimonios-grid, .precios-grid { grid-template-columns: 1fr; }
+            .precio-card.popular { transform: none; }
+            .que-es-visual::after { display: none; }
+            .contacto-promise { gap: 20px; }
+            .whatsapp-float { bottom: 20px; right: 20px; width: 52px; height: 52px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+    <a href="#" class="nav-logo">Dolphin <span>Reiki</span></a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#que-es">¿Qué es?</a></li>
+        <li><a href="#quien-soy">Quién soy</a></li>
+        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#testimonios">Testimonios</a></li>
+        <li><a href="#precios">Sesiones</a></li>
+        <li><a href="#preguntas">FAQ</a></li>
+        <li><a href="https://wa.me/59894691690" class="nav-cta">Agendar</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+        <span class="hero-eyebrow">Sanación energética holística</span>
+        <h1>Dolphin<br><em>Reiki</em></h1>
+        <p class="hero-subtitle">Conectá con la frecuencia de la alegría y la fluidez. Sanación profunda que disuelve lo que ya no te sirve.</p>
+        <div class="hero-actions">
+            <a href="#precios" class="btn-primary">Ver sesiones disponibles</a>
+            <a href="#que-es" class="btn-secondary">Conocer más</a>
+        </div>
+    </div>
+    <div class="waves-container">
+        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none">
+            <defs>
+                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z"/>
+            </defs>
+            <g class="parallax-waves">
+                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(245,240,232,0.7)"/>
+                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(245,240,232,0.5)"/>
+                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(245,240,232,0.3)"/>
+                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fdfaf6"/>
+            </g>
+        </svg>
+    </div>
+</header>
+
+<!-- QUOTE BAR -->
+<div class="quote-bar">
+    <blockquote>El océano no lucha contra sus olas.<br>Fluye con ellas. <em>Vos también podés.</em></blockquote>
+    <cite>Dolphin Reiki · El Pinar, Uruguay</cite>
+</div>
+
+<!-- QUÉ ES -->
+<section class="section reveal" id="que-es">
+    <div class="que-es-grid">
+        <div class="que-es-text">
+            <span class="section-label">La práctica</span>
+            <h2 class="section-title">¿Qué es el<br><em>Dolphin Reiki?</em></h2>
+            <p>El Dolphin Reiki es una técnica de sanación holística que canaliza las frecuencias vibratorias de los delfines — seres conocidos por su inteligencia emocional, su alegría innata y su capacidad de comunicación sutil.</p>
+            <p>A través de este sistema transpersonal, se trabaja sobre el cuerpo sutil para disolver corazas emocionales y memorias de estancamiento que bloquean tu flujo vital.</p>
+            <p>No requiere contacto físico con fauna marina. Opera bajo el principio de resonancia arquetípica, permitiendo sesiones igualmente efectivas de forma presencial o a distancia.</p>
+        </div>
+        <div class="que-es-visual">
+            <img src="https://images.unsplash.com/photo-1607153333879-c174d265f1d2?auto=format&fit=crop&w=800&q=80" alt="Delfines en el océano" class="que-es-img">
+        </div>
+    </div>
+</section>
+
+<!-- QUIÉN SOY -->
+<div id="quien-soy" class="reveal">
+    <div class="quien-soy-inner">
+        <span class="section-label" style="color: rgba(46,196,182,0.8);">La terapeuta</span>
+        <div class="quien-soy-grid">
+            <div class="quien-foto-wrapper">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Terapeuta" class="quien-foto">
+                <span class="quien-tag">🐬 Certificada Internacionalmente</span>
+            </div>
+            <div class="quien-text">
+                <h2 class="section-title">Hola, soy <em>Erica Luthar</em></h2>
+                <p class="quien-bio">Llegué al Dolphin Reiki después de años buscando una práctica que uniera mi amor por el mar con mi vocación sanadora. Lo que encontré superó toda expectativa — no solo transformó mi vida, sino que se convirtió en mi misión.</p>
+                <p class="quien-bio">Acompaño a personas que sienten que están "atascadas" — en sus emociones, en sus cuerpos, en sus relaciones — a encontrar de nuevo ese estado de fluidez natural que todos llevamos adentro.</p>
+                <div class="quien-credentials">
+                    <div class="credential-item">
+                        <span class="credential-dot"></span>
+                        Practicante certificada de Dolphin Reiki — Escuela Internacional de Sanación Acuática
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-dot"></span>
+                        Reiki Usui Nivel III (Maestra)
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-dot"></span>
+                        Formación en Psicología Transpersonal
+                    </div>
+                    <div class="credential-item">
+                        <span class="credential-dot"></span>
+                        5+ años de práctica activa, más de 200 sesiones
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BENEFICIOS -->
+<div id="beneficios" class="reveal">
+    <div class="beneficios-inner">
+        <div class="beneficios-header">
+            <span class="section-label">¿Qué vas a sentir?</span>
+            <h2 class="section-title">Beneficios de la <em>terapia</em></h2>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">🌊</div>
+                <h3>Fluidez Emocional</h3>
+                <p>Liberá tensiones arraigadas en el inconsciente. Los procesos internos retoman su curso orgánico y natural, sin resistencias.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">🐬</div>
+                <h3>Retorno a la Alegría</h3>
+                <p>Sintonizá tu mente con estados de ligereza y juego. Desactivá los patrones de hipervigilancia y control rígido que te agotan.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">✨</div>
+                <h3>Alineación Energética</h3>
+                <p>Restablecé la conductividad de tus centros energéticos principales, aliviando el agotamiento crónico y la ansiedad.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">🌿</div>
+                <h3>Claridad Mental</h3>
+                <p>La frecuencia del delfín disuelve la niebla mental. Tomás decisiones desde un lugar más claro, sereno y alineado.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">💙</div>
+                <h3>Reconexión Corporal</h3>
+                <p>Recuperás la conciencia sobre tu cuerpo físico como hogar seguro. El sistema nervioso regula su respuesta al estrés.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon-wrap">🔮</div>
+                <h3>Expansión de Conciencia</h3>
+                <p>Accedés a perspectivas más amplias sobre tu historia y tus patrones. Abrís un nuevo capítulo desde la comprensión.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- GALERÍA DELFINES -->
+<div class="dolphin-gallery reveal">
+    <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1570481662006-a3a1374699e8?auto=format&fit=crop&w=800&q=80')"></div>
+    <div class="gallery-img tall" style="background-image: url('https://images.unsplash.com/photo-1607153333879-c174d265f1d2?auto=format&fit=crop&w=800&q=80')"></div>
+    <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?auto=format&fit=crop&w=800&q=80')"></div>
+    <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1544552866-d3ed42536cfd?auto=format&fit=crop&w=800&q=80')"></div>
+    <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1568430462989-44163eb1752f?auto=format&fit=crop&w=800&q=80')"></div>
+    <div class="gallery-img" style="background-image: url('https://images.unsplash.com/photo-1596523635629-d5f7dceedc2e?auto=format&fit=crop&w=800&q=80')"></div>
+</div>
+
+<!-- TESTIMONIOS -->
+<div id="testimonios" class="reveal">
+    <div class="testimonios-inner">
+        <div class="testimonios-header">
+            <span class="section-label">Lo que dicen</span>
+            <h2 class="section-title">Experiencias <em>reales</em></h2>
+        </div>
+        <div class="testimonios-grid">
+            <div class="testimonio-card featured">
+                <span class="quote-mark">"</span>
+                <span class="testimonio-stars">★★★★★</span>
+                <p class="testimonio-text">Llegué con mucha ansiedad y sin saber bien qué esperar. Salí de la sesión sintiéndome como si alguien hubiera quitado un peso enorme de mis hombros. No tengo otra forma de describirlo.</p>
+                <div class="testimonio-author">
+                    <div class="author-avatar">M</div>
+                    <div>
+                        <span class="author-name">Marcela R.</span>
+                        <span class="author-detail">El Pinar · Sesión presencial</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonio-card">
+                <span class="quote-mark">"</span>
+                <span class="testimonio-stars">★★★★★</span>
+                <p class="testimonio-text">Hice la sesión a distancia desde Argentina y fue igual de intensa que cualquier cosa que haya probado en persona. La sensación de calor en el pecho duró días.</p>
+                <div class="testimonio-author">
+                    <div class="author-avatar">L</div>
+                    <div>
+                        <span class="author-name">Lucía B.</span>
+                        <span class="author-detail">Buenos Aires · Sesión online</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonio-card">
+                <span class="quote-mark">"</span>
+                <span class="testimonio-stars">★★★★★</span>
+                <p class="testimonio-text">Llevo tres sesiones y cada una fue diferente. Lo que más me sorprendió fue lo que surgió en la integración posterior — cambios que no esperaba pero que necesitaba profundamente.</p>
+                <div class="testimonio-author">
+                    <div class="author-avatar">C</div>
+                    <div>
+                        <span class="author-name">Carlos M.</span>
+                        <span class="author-detail">El Pinar · Pack de sesiones</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PRECIOS -->
+<div id="precios" class="reveal">
+    <div class="precios-inner">
+        <div class="precios-header">
+            <span class="section-label">Invertí en tu bienestar</span>
+            <h2 class="section-title">Sesiones <em>disponibles</em></h2>
+            <p style="color: var(--text-light); font-size: 0.95rem; margin-top: 12px;">Presencial en El Pinar (Canelones) o a distancia en cualquier parte del mundo</p>
+        </div>
+        <div class="precios-grid">
+            <div class="precio-card">
+                <div class="precio-nombre">Sesión Única</div>
+                <div class="precio-desc">Para quien quiere conocer la práctica o necesita un momento de alivio puntual.</div>
+                <div class="precio-monto">
+                    <span class="precio-moneda">USD</span>40
+                </div>
+                <span class="precio-periodo">por sesión de 60 min</span>
+                <ul class="precio-features">
+                    <li>Sesión de 60 minutos</li>
+                    <li>Sintonización inicial</li>
+                    <li>Cierre de integración</li>
+                    <li>Presencial o online</li>
+                </ul>
+                <a href="https://wa.me/59894691690?text=Hola%2C%20quiero%20agendar%20una%20sesi%C3%B3n%20%C3%BAnica" class="precio-btn precio-btn-outline">Consultar disponibilidad</a>
+            </div>
+            <div class="precio-card popular">
+                <span class="popular-badge">Más elegido</span>
+                <div class="precio-nombre">Pack 3 Sesiones</div>
+                <div class="precio-desc">El proceso real comienza con la continuidad. Ideal para liberar patrones profundos.</div>
+                <div class="precio-monto">
+                    <span class="precio-moneda">USD</span>105
+                </div>
+                <span class="precio-periodo">3 sesiones · ahorrás USD 15</span>
+                <ul class="precio-features">
+                    <li>3 sesiones de 60 minutos</li>
+                    <li>Seguimiento entre sesiones</li>
+                    <li>Plan personalizado</li>
+                    <li>Presencial o online</li>
+                    <li>Validez 2 meses</li>
+                </ul>
+                <a href="https://wa.me/59894691690?text=Hola%2C%20me%20interesa%20el%20pack%20de%203%20sesiones" class="precio-btn precio-btn-solid">Reservar pack</a>
+            </div>
+            <div class="precio-card">
+                <div class="precio-nombre">Sesión Online</div>
+                <div class="precio-desc">Desde donde estés. La distancia no interfiere con la intensidad de la sesión.</div>
+                <div class="precio-monto">
+                    <span class="precio-moneda">USD</span>35
+                </div>
+                <span class="precio-periodo">por sesión de 60 min</span>
+                <ul class="precio-features">
+                    <li>Sesión de 60 minutos</li>
+                    <li>Via videollamada o sin video</li>
+                    <li>Cualquier país del mundo</li>
+                    <li>Informe post-sesión</li>
+                </ul>
+                <a href="https://wa.me/59894691690?text=Hola%2C%20quiero%20agendar%20una%20sesi%C3%B3n%20online" class="precio-btn precio-btn-outline">Agendar online</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ -->
+<section class="section reveal" id="preguntas">
+    <div class="faq-container">
+        <div class="faq-header">
+            <span class="section-label">Preguntas frecuentes</span>
+            <h2 class="section-title">Tus <em>dudas</em>, respondidas</h2>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">¿Es necesario saber nadar o tener contacto físico con delfines? <span class="faq-plus">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">No, en absoluto. La terapia es puramente vibracional y se realiza en camilla de forma completamente seca. Se trabaja con la frecuencia arquetípica del delfín, no con el animal físico.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">¿Cuánto dura una sesión? <span class="faq-plus">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Cada sesión tiene una duración de 60 minutos. Incluye un espacio inicial de sintonización (10-15 min), el trabajo energético central (35-40 min) y un cierre de integración consciente (10 min).</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">¿Funciona igual a distancia que en persona? <span class="faq-plus">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Sí. Al operar en un espectro de energía sutil no local, la distancia geográfica no interfiere con la intensidad ni los resultados. Muchas personas reportan experiencias igualmente profundas en sesiones remotas.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">¿Cuántas sesiones necesito? <span class="faq-plus">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Depende de cada persona y lo que busca trabajar. Una sesión única puede traer alivio inmediato y claridad. Para trabajar patrones más profundos, el pack de 3 sesiones permite un proceso más sostenido y efectivo.</div></div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">¿Es compatible con tratamientos médicos o psicológicos? <span class="faq-plus">+</span></div>
+            <div class="faq-answer"><div class="faq-answer-inner">Completamente. El Dolphin Reiki es una práctica complementaria, no sustituta de tratamientos médicos o psicológicos convencionales. Trabaja en el plano energético y es compatible con cualquier tratamiento que estés siguiendo.</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<div id="contacto" class="reveal">
+    <div class="contacto-inner">
+        <span class="section-label" style="color: rgba(46,196,182,0.7);">¿Lista/o para empezar?</span>
+        <h2 class="section-title">Tu transformación<br><em>empieza aquí</em></h2>
+        <p class="contacto-sub">Escribime por WhatsApp y encontramos el espacio ideal para vos. Sin compromiso, sin presión — solo una conversación honesta sobre lo que necesitás.</p>
+        <div class="contacto-actions">
+            <a href="https://wa.me/59894691690?text=Hola%2C%20quiero%20saber%20más%20sobre%20el%20Dolphin%20Reiki" class="btn-whatsapp" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="22" height="22" alt="WhatsApp" style="display:block;flex-shrink:0;">
+                Escribir por WhatsApp
+            </a>
+        </div>
+        <div class="contacto-promise">
+            <span class="promise-item">Respondo en menos de 24 hs</span>
+            <span class="promise-item">Primera consulta sin costo</span>
+            <span class="promise-item">Presencial o a distancia</span>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <span class="footer-logo">Dolphin Reiki</span>
+    <p>&copy; 2026 Dolphin Reiki — Espacio Holístico</p>
+    <p style="margin-top: 8px; font-size: 0.78rem; opacity: 0.5;">Sanación profunda inspirada en la sabiduría libre del océano.</p>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/59894691690" class="whatsapp-float" target="_blank" aria-label="Contacto por WhatsApp">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="64" height="64" alt="WhatsApp">
+</a>
+
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Hamburger menu
+    function toggleMenu() {
+        const links = document.getElementById('navLinks');
+        const ham = document.getElementById('hamburger');
+        links.classList.toggle('open');
+        ham.classList.toggle('open');
+    }
+    document.querySelectorAll('#navLinks a').forEach(a => {
+        a.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+        });
+    });
+
+    // Particles
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.setProperty('--x', `${Math.random() * 100}%`);
+        p.style.setProperty('--dur', `${7 + Math.random() * 10}s`);
+        p.style.setProperty('--delay', `${Math.random() * 10}s`);
+        p.style.width = p.style.height = `${2 + Math.random() * 4}px`;
+        particlesContainer.appendChild(p);
+    }
+
+    // Parallax hero
+    window.addEventListener('scroll', () => {
+        const s = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        if (s < window.innerHeight && heroContent) {
+            heroContent.style.transform = `translateY(${s * 0.35}px)`;
+            heroContent.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.75));
+        }
+    });
+
+    // FAQ
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const parent = q.parentElement;
+            const answer = parent.querySelector('.faq-answer');
+            const isOpen = parent.classList.contains('active');
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.faq-answer').style.maxHeight = null;
+            });
+            if (!isOpen) {
+                parent.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+            }
+        });
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
