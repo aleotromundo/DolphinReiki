@@ -1271,68 +1271,28 @@
         }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* ===== MOBILE MENU OVERLAY ===== */
-        .mobile-menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: #0a2540;
-            z-index: 9999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-        .mobile-menu-overlay.open { display: flex; }
-
-        #navCloseBtn {
-            position: absolute;
-            top: 20px; right: 20px;
-            width: 44px; height: 44px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.25);
-            background: rgba(255,255,255,0.08);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #navCloseBtn svg {
-            width: 18px; height: 18px;
-            stroke: #fff;
-            fill: none;
-            stroke-width: 2.5;
-            stroke-linecap: round;
-        }
-
-        .mobile-link {
-            color: rgba(255,255,255,0.85);
-            text-decoration: none;
-            font-size: 1.35rem;
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 300;
-            letter-spacing: 0.5px;
-            transition: color 0.2s;
-        }
-        .mobile-link:hover { color: var(--teal); }
-        .mobile-link-cta {
-            margin-top: 12px;
-            padding: 13px 40px;
-            background: var(--teal);
-            color: var(--ocean-deep) !important;
-            border-radius: 50px;
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
         /* ===== MOBILE ===== */
         @media (max-width: 900px) {
             nav { padding: 18px 24px; }
             nav.scrolled { padding: 14px 24px; }
-            #navLinksDesktop { display: none; }
+            .nav-links { display: none; }
             .nav-hamburger { display: flex; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                inset: 0;
+                background: rgba(10,37,64,0.97);
+                backdrop-filter: blur(20px);
+                z-index: 999;
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+            }
+            .nav-links.open a { font-size: 1.4rem; }
+            .nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+            .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+            .nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
             .section { padding: 80px 24px; }
             #quien-soy, #beneficios, #testimonios, #precios, #contacto { padding: 80px 24px; }
@@ -1351,7 +1311,7 @@
 <!-- NAVBAR -->
 <nav id="navbar">
     <a href="#" class="nav-logo">Dolphin <span>Reiki</span></a>
-    <ul class="nav-links" id="navLinksDesktop">
+    <ul class="nav-links" id="navLinks">
         <li><a href="#que-es">¿Qué es?</a></li>
         <li><a href="#quien-soy">Quién soy</a></li>
         <li><a href="#beneficios">Beneficios</a></li>
@@ -1360,27 +1320,10 @@
         <li><a href="#preguntas">FAQ</a></li>
         <li><a href="https://wa.me/59894691690" class="nav-cta">Agendar</a></li>
     </ul>
-    <div class="nav-hamburger" id="hamburger">
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
         <span></span><span></span><span></span>
     </div>
 </nav>
-
-<!-- MOBILE MENU OVERLAY (fuera del nav para evitar el stacking context del backdrop-filter) -->
-<div id="mobileMenu" class="mobile-menu-overlay">
-    <button id="navCloseBtn" aria-label="Cerrar menú">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <line x1="4" y1="4" x2="20" y2="20"/>
-            <line x1="20" y1="4" x2="4" y2="20"/>
-        </svg>
-    </button>
-    <a href="#que-es" class="mobile-link">¿Qué es?</a>
-    <a href="#quien-soy" class="mobile-link">Quién soy</a>
-    <a href="#beneficios" class="mobile-link">Beneficios</a>
-    <a href="#testimonios" class="mobile-link">Testimonios</a>
-    <a href="#precios" class="mobile-link">Sesiones</a>
-    <a href="#preguntas" class="mobile-link">FAQ</a>
-    <a href="https://wa.me/59894691690" class="mobile-link mobile-link-cta">Agendar</a>
-</div>
 
 <!-- HERO -->
 <header class="hero">
@@ -1741,29 +1684,17 @@
     });
 
     // Hamburger menu
-    const mobileMenu = document.getElementById('mobileMenu');
-    const hamburgerBtn = document.getElementById('hamburger');
-    const navCloseBtn = document.getElementById('navCloseBtn');
-
-    function openMenu() {
-        mobileMenu.classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeMenu() {
-        mobileMenu.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
     function toggleMenu() {
-        mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+        const links = document.getElementById('navLinks');
+        const ham = document.getElementById('hamburger');
+        links.classList.toggle('open');
+        ham.classList.toggle('open');
     }
-
-    hamburgerBtn.addEventListener('click', toggleMenu);
-    navCloseBtn.addEventListener('click', closeMenu);
-
-    document.querySelectorAll('#mobileMenu .mobile-link').forEach(a => {
-        a.addEventListener('click', closeMenu);
+    document.querySelectorAll('#navLinks a').forEach(a => {
+        a.addEventListener('click', () => {
+            document.getElementById('navLinks').classList.remove('open');
+            document.getElementById('hamburger').classList.remove('open');
+        });
     });
 
     // Particles
